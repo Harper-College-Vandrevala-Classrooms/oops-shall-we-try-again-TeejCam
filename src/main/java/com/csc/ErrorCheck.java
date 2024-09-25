@@ -6,21 +6,35 @@ public class ErrorCheck
 {
     public static int getValue (String welcPrompt, int lowBound, int upBound, String error, String exPrompt)
     {
-        int userInt;
+        String userIn;
         System.out.println(welcPrompt);
         Scanner scanner = new Scanner(System.in);
-        userInt = scanner.nextInt();
+        
+        boolean invalidValue = true;
+        int returnValue = -100;
 
-        while (userInt < lowBound || userInt > upBound) {
-            System.out.println(error);
-            userInt = scanner.nextInt();
-       }
-        System.out.println(exPrompt);
-        return userInt;
+        while (invalidValue){
+            userIn = scanner.nextLine();
+            if (userIn.trim().equals("Exit")){
+                System.out.println("Exiting gracefully...");
+                return returnValue;
+            }
+            returnValue = Integer.parseInt(userIn);
+            if(returnValue < lowBound || returnValue > upBound) {
+                System.out.println(error);
+            } else {
+                System.out.println(exPrompt);
+                return returnValue;
+            }
+        }
+        return returnValue;
     }
+
     public static void main (String[] args)
     {
         getValue("Welcome! Enter a number: ", -10, 10, "Your number is not within my chosen bounds. Enter again: ", "Goodbye!");
+
     }
+
 }
 
